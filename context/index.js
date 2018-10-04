@@ -1,4 +1,4 @@
-const context = {
+fconst context = {
   exerciseA() {
     const fly = () => {
       console.log(this);
@@ -16,11 +16,13 @@ const context = {
 
 
     // What is the value of `this` when we call ship.fly()?
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = instance of SpaceProbe;
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // a new instance of the SpaceProbe class called ship is created,
+    // so ship.fly() is calling the fly method on the ship object.
+    // 'This' on the fly method refers to the ship object.
   },
 
   exerciseB() {
@@ -30,11 +32,11 @@ const context = {
     }
     
     // What is the value of `this` when we call fn()?
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = 'global vwindow object' ;
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // The function fn is defined in the global scope, so `this` points to the global window object.
   },
 
   exerciseC() {
@@ -49,11 +51,12 @@ const context = {
     el.addEventListener("click", car.getInfo);
 
     // What is the value of `this` when a user clicks on our element and car.getInfo() is triggered?
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = 'button element';
     return result;
 
     // Annotation: 
-    // Write your annotation here as a comment
+    // The getInfo method is being called on the 'car' object, so `this` within the function refers
+    // to that car object.  
   },
 
   exerciseD() {
@@ -70,11 +73,14 @@ const context = {
 
 
     // What is the value of `this` when we call dog.getBreed()?
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = 'global window object';
     return result;
 
     // Annotation: 
-    // Write your annotation here as a comment
+    // `This` is being called on a new function within the getBreed method. This inner 
+    // function cannot access the `this` on the dog object because it is not a property of 
+    // the dog object itself. innerFunction will log the Window object for `this`, which 
+    // will then be returned by getBreed()
   },
 
   exerciseE() {
@@ -86,11 +92,12 @@ const context = {
 
 
     // What is the value of `this` when we call fn()?
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = 'global window object';
     return result;
 
     // Annotation: 
-    // Write your annotation here as a comment
+    // With ES6 syntax, the value of this is assigned on function declaration. `This` refers to the
+    // global window object because the function itself has been defined globally
   },
 
   exerciseF() {
@@ -109,11 +116,12 @@ const context = {
     const storm = new Hero('Ororo', 'weather control', true);
 
     // What is the value of `this` when we call storm.identifyHero()?
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = 'instance of Hero';
     return result;
 
     // Annotation: 
-    // Write your annotation here as a comment
+    // identifyHero is a method on the Hero object. `This` refers to the object on which
+    // it is called. When we create the new storm object from Hero, this will refer to storm.
   },
 
   exerciseG() {
@@ -191,11 +199,13 @@ const context = {
     });
 
     // What is the value of `this` when a user clicks on our #btn element and the callback is triggered?
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = '$(#btn) object';
     return result;
 
     // Annotation: 
-    // Write your annotation here as a comment.
+    // The function that console.logs `this` is being invoked by the click event 
+    // on the button object. The button is wrapped in a jQuery wrapper, 
+    // which makes it a jQuery object.
   }
 
 };
