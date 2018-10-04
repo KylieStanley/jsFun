@@ -9,16 +9,16 @@ const { bosses, sidekicks } = require('./datasets/bosses');
 // DATASET: instructors, cohorts from ./datasets/turing
 const turingPrompts = {
   studentsForEachInstructor() {
-    // Return an array of instructors where each instructor is an object
-    // with a name and the count of students in their module. e.g. 
-    // [
-    //  { name: 'Pam', studentCount: 21 },
-    //  { name: 'Robbie', studentCount: 18 }
-    // ]
+    instructors.map((instructor) => {
+        let newInstructor = {name: instructor.name}
+        let matchingCohort = cohorts.find(function(cohort) {
+        return cohort.module === instructor.module;
+    })
+        newInstructor.students = matchingCohort.studentCount;
+        return newInstructor;
+    });
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
-
+ 
     // Annotation:
     // Write your annotation here as a comment
   },
@@ -99,11 +99,20 @@ const modPrompts = {
     //   { mod: 4, studentsPerInstructor: 8 }
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+  const modPrompts = {
+    studentsPerMod() {
+      const result = mods.map((mod) => {
+       let numOfInstructors = mod.students / mod.instructors;
+        return {
+          mod: mod.mod,
+          studentsPerInstructors: numOfInstructors
+        }
+      })
+      return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // I receive an array of objects and want to receive an array of the same length with a new
+    // key of studentsPerInstructor and mod.
   }
 };
 
@@ -126,6 +135,9 @@ const modPrompts = {
 // DATASET: classrooms from ./datasets/classrooms
 const classPrompts = {
   feClassrooms() {
+    const result = classrooms.filter((room) => {
+      return room.program === 'FE';
+    })
     // Create an array of just the front-end classrooms. e.g.
     // [
     //   { roomLetter: 'A', program: 'FE', capacity: 32 },
@@ -133,12 +145,10 @@ const classPrompts = {
     //   { roomLetter: 'E', program: 'FE', capacity: 22 },
     //   { roomLetter: 'G', program: 'FE', capacity: 29 }
     // ]
-
-    const result = 'REPLACE WITH YOUR RESULT HERE';
     return result;
-
     // Annotation:
-    // Write your annotation here as a comment
+    // I receive an array of classrooms and want to return a new array
+    // with only FE classrooms filtered out so I use the filter method.
   },
 
   totalCapacities() {
@@ -190,11 +200,22 @@ const cakePrompts = {
     // every cake in the dataset e.g.
     // ['dutch process cocoa', 'toasted sugar', 'smoked sea salt', 'berries', ..etc]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = cakes.reduce((acc, cake) => {
+      cake.toppings.forEach((topping) => {
+        if (!acc.includes(topping)) {
+          acc.push(topping);
+        }
+      });
+      return acc;
+    }, []);
     return result;
 
-    // Annotation:
-    // Write your annotation here as a comment
+    // Annotation: I receive an array of cakes and I want to take the 'toppings' 
+    // property from each cake object and push them into a new array, minus any duplicates so I
+    // start with reduce to iterate through the cakes and initialize an empty array.
+    // Inside the reduce method, I can use forEach on cake.toppings to iterate through
+    // the toppings and check if the new array contains the topping. If not, it will be pushed in.
+    // 
   },
 
   groceryList() {
@@ -208,12 +229,28 @@ const cakePrompts = {
     //    ...etc
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = cakes.reduce((acc, cake) => {
+      cake.toppings.forEach((topping) => {
+        acc.push(topping);
+      })
+      return acc;
+    }, []).reduce((acc, topping) => {
+      if (topping in acc) {
+        acc[topping]++
+      } else {
+        acc[topping] = 1;
+      }
+      return acc;
+    }, {});;
     return result;
 
-    // Annotation:
-    // Write your annotation here as a comment
-  },
+    // Annotation:     
+    //I received an array of cake objects and want to produce a new object that
+    //includes the toppings and amount needed of each so I use reduce to first create a new array of only
+    //the toppings properties from each cake object. I then create the new object by using reduce again on
+    //the toppings array. The callback returns a new key value pair for each topping, and the method
+    //returns the entire object;
+    // },
 
   stockPerCake() {
     // Return an array of objects that include just the flavor of the cake and how
@@ -243,7 +280,18 @@ const cakePrompts = {
   },
 
   onlyInStock() {
-    // Return an array of only the cakes that are in stock
+
+    const result = cakes.filter((currentCake) => {
+        return currentCake.inStock;
+    });
+
+    return result;
+
+    //I'm receiving an array of cakes and I want a subset of that
+    //array so I will use filter. My filter callback will return only
+    //the cakes that have an inStock value.  Return an array of only
+    //the cakes that are in stock.
+
     // e.g.
     // [
     //   {
@@ -293,11 +341,19 @@ const piePrompts = {
     //   sugar: 100
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+  let piesNeeded = pie.desiredInventoryCount -  pie.inventoryCount;
+
+  const result = Object.keys(pie.ingredients).reduce((obj, key) => {
+    obj[key] = pie.ingredients[key] * piesNeeded;
+    return obj;
+  }, {});
+  return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // I receive an object and need to create a new object from that, so I 
+    // will use reduce to iterate over the keys in the pie ingredients object.
+    // Object.keys will turn the ingredients into an array before using reduce.
+    // Each iteration returns the obj with the new property added.
   }
 };
 
@@ -327,11 +383,26 @@ const clubPrompts = {
     //   ...etc
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = clubs.reduce((obj, club) => {
+      club.members.forEach((member) => {
+        if (!(member in obj)) {
+          obj[member] = clubs.filter((club) => {
+            return club.members.indexOf(member) > -1;
+          }).map((club) => {
+            return club.club;
+          })
+        }
+      })
+      return obj;
+    }, {})
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // I receive an array of clubs and want to return an object so I will start with reduce.
+    // I need to access the members array of each club so I used forEach to  add each member into
+    // the object I am creating with reduce. Each member key in the object needs an array value so I
+    // used filter to iterate through the clubs and check if the member is included. This returns the 
+    // value as an array of objects, so I mapped through to just get the club names in the array.
   }
 };
 
@@ -361,7 +432,18 @@ const bossPrompts = {
     //   { bossName: 'Scar', sidekickLoyalty: 16 }
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+     const result = Object.keys(bosses).map((boss) => {
+      return {
+        bossName: bosses[boss].name,
+        sideKickLoyalty: sidekicks.reduce((acc, sideKick) => {
+          if (bosses[boss].name === sideKick.boss) {
+            acc += sideKick.loyaltyToBoss;
+          }
+          return acc;
+        }, 0)
+      }
+    });
+    
     return result;
 
     // Annotation:
