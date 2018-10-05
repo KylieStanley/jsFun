@@ -580,11 +580,7 @@ const scope = {
     // Log D: num
 
     const result =  [
-      {'': ''}
-      {'': ''}
-      {'': ''}
-      {'': ''}
-      {'': ''}
+      
     ];
     return result;
 
