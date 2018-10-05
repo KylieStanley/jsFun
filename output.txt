@@ -1,0 +1,266 @@
+
+> jsFun@1.0.0 test /Users/kyliestanley/Turing/Module2/jsFun
+> ./node_modules/mocha/bin/mocha test/ --reporter dot --require mocha-clean
+
+
+
+  !․,․․․․․․,!!!!!!!!!!!!!!!!!!!!!!․!․․․!!․․!․․!!․
+
+  16 passing (21ms)
+  2 pending
+  29 failing
+
+  1) CONTEXT
+       exerciseA:
+
+      AssertionError: expected 'instance of SpaceProbe' to equal 'global window object'
+      + expected - actual
+
+      -instance of SpaceProbe
+      +global window object
+      
+      at Context.it (test/context-test.js:7:23)
+
+  2) PROTOTYPES
+       Turing Prompts
+         studentsForEachInstructor:
+     TypeError: Cannot read property 'studentsForEachInstructor' of undefined
+      at Context.it (test/prototype-test.js:11:36)
+
+  3) PROTOTYPES
+       Turing Prompts
+         studentsPerInstructor:
+     TypeError: Cannot read property 'studentsPerInstructor' of undefined
+      at Context.it (test/prototype-test.js:16:36)
+
+  4) PROTOTYPES
+       Turing Prompts
+         modulesPerTeacher:
+     TypeError: Cannot read property 'modulesPerTeacher' of undefined
+      at Context.it (test/prototype-test.js:21:36)
+
+  5) PROTOTYPES
+       Turing Prompts
+         curriculumPerTeacher:
+     TypeError: Cannot read property 'curriculumPerTeacher' of undefined
+      at Context.it (test/prototype-test.js:26:36)
+
+  6) PROTOTYPES
+       Club Prompts
+         membersBelongingToClubs:
+     TypeError: Cannot read property 'membersBelongingToClubs' of undefined
+      at Context.it (test/prototype-test.js:34:34)
+
+  7) PROTOTYPES
+       Boss Prompts
+         bossLoyalty:
+     TypeError: Cannot read property 'bossLoyalty' of undefined
+      at Context.it (test/prototype-test.js:42:34)
+
+  8) PROTOTYPES
+       Class Prompts
+         feClassrooms:
+     TypeError: Cannot read property 'feClassrooms' of undefined
+      at Context.it (test/prototype-test.js:50:35)
+
+  9) PROTOTYPES
+       Class Prompts
+         totalCapacities:
+     TypeError: Cannot read property 'totalCapacities' of undefined
+      at Context.it (test/prototype-test.js:55:35)
+
+  10) PROTOTYPES
+       Class Prompts
+         sortByCapacity:
+     TypeError: Cannot read property 'sortByCapacity' of undefined
+      at Context.it (test/prototype-test.js:60:35)
+
+  11) PROTOTYPES
+       Mod Prompts
+         studentsPerMod:
+     TypeError: Cannot read property 'studentsPerMod' of undefined
+      at Context.it (test/prototype-test.js:69:33)
+
+  12) PROTOTYPES
+       Kitty Prompts
+         orangeKittyNames:
+     TypeError: Cannot read property 'orangeKittyNames' of undefined
+      at Context.it (test/prototype-test.js:77:35)
+
+  13) PROTOTYPES
+       Kitty Prompts
+         sortByAge:
+     TypeError: Cannot read property 'sortByAge' of undefined
+      at Context.it (test/prototype-test.js:82:35)
+
+  14) PROTOTYPES
+       Kitty Prompts
+         growUp:
+     TypeError: Cannot read property 'growUp' of undefined
+      at Context.it (test/prototype-test.js:87:35)
+
+  15) PROTOTYPES
+       Pie Prompts
+         howManyIngredients:
+     TypeError: Cannot read property 'howManyIngredients' of undefined
+      at Context.it (test/prototype-test.js:95:33)
+
+  16) PROTOTYPES
+       Astronomy Prompts
+         starsInConstellations:
+     TypeError: Cannot read property 'starsInConstellations' of undefined
+      at Context.it (test/prototype-test.js:103:39)
+
+  17) PROTOTYPES
+       Astronomy Prompts
+         starsByColor:
+     TypeError: Cannot read property 'starsByColor' of undefined
+      at Context.it (test/prototype-test.js:108:39)
+
+  18) PROTOTYPES
+       Astronomy Prompts
+         constellationsStarsExistIn:
+     TypeError: Cannot read property 'constellationsStarsExistIn' of undefined
+      at Context.it (test/prototype-test.js:113:39)
+
+  19) PROTOTYPES
+       Cake Prompts
+         allToppings:
+     TypeError: Cannot read property 'allToppings' of undefined
+      at Context.it (test/prototype-test.js:121:34)
+
+  20) PROTOTYPES
+       Cake Prompts
+         groceryList:
+     TypeError: Cannot read property 'groceryList' of undefined
+      at Context.it (test/prototype-test.js:126:34)
+
+  21) PROTOTYPES
+       Cake Prompts
+         stockPerCake:
+     TypeError: Cannot read property 'stockPerCake' of undefined
+      at Context.it (test/prototype-test.js:131:34)
+
+  22) PROTOTYPES
+       Cake Prompts
+         totalInventory:
+     TypeError: Cannot read property 'totalInventory' of undefined
+      at Context.it (test/prototype-test.js:136:34)
+
+  23) PROTOTYPES
+       Cake Prompts
+         onlyInStock:
+     TypeError: Cannot read property 'onlyInStock' of undefined
+      at Context.it (test/prototype-test.js:141:34)
+
+  24) SCOPE
+       exerciseB:
+
+      AssertionError: expected [ Array(4) ] to deeply equal [ Array(4) ]
+      + expected - actual
+
+       [
+         {
+      -    "A": "75"
+      +    "A": 75
+         }
+         {
+      -    "B": "64"
+      +    "B": 64
+         }
+         {
+      -    "C": "64"
+      +    "C": 64
+         }
+         {
+      -    "D": "30"
+      +    "D": 30
+         }
+       ]
+      
+      at Context.it (test/scope-test.js:17:28)
+
+  25) SCOPE
+       exerciseF:
+
+      AssertionError: expected [ Array(5) ] to deeply equal [ Array(5) ]
+      + expected - actual
+
+         {
+           "D": "Biscuit"
+         }
+         {
+      -    "D": "Biscuit"
+      +    "E": "Biscuit"
+         }
+       ]
+      
+      at Context.it (test/scope-test.js:57:28)
+
+  26) SCOPE
+       exerciseG:
+
+      AssertionError: expected [ Array(4) ] to deeply equal [ Array(4) ]
+      + expected - actual
+
+       [
+         {
+      -    "A": "undefined"
+      +    "A": "reference error"
+         }
+         {
+           "B": "mango"
+         }
+      
+      at Context.it (test/scope-test.js:68:28)
+
+  27) SCOPE
+       exerciseJ:
+
+      AssertionError: expected [ Array(6) ] to deeply equal [ Array(6) ]
+      + expected - actual
+
+         {
+           "D": "gouda"
+         }
+         {
+      -    "B": "undefined"
+      +    "B": [undefined]
+         }
+         {
+           "C": "not a mediocre sandwich"
+         }
+      
+      at Context.it (test/scope-test.js:103:28)
+
+  28) SCOPE
+       exerciseM:
+
+      AssertionError: expected [] to deeply equal [ Array(4) ]
+      + expected - actual
+
+      -[]
+      +[
+      +  {
+      +    "A": 5
+      +  }
+      +  {
+      +    "B": 6
+      +  }
+      +  {
+      +    "C": "reference error"
+      +  }
+      +  {
+      +    "D": 6
+      +  }
+      +]
+      
+      at Context.it (test/scope-test.js:132:28)
+
+  29) SCOPE
+       exerciseN:
+     AssertionError: expected 'REPLACE WITH YOUR RESULT HERE' to deeply equal [ Array(6) ]
+      at Context.it (test/scope-test.js:142:28)
+
+
+

@@ -32,7 +32,7 @@ const scope = {
     const result = [
     {'A': 'Ben'},
     {'B': 'CardiB'},
-    {'C': 'CardiB'}.
+    {'C': 'CardiB'},
     {'D': 'Paul'}
     ];
     return result;
@@ -328,6 +328,7 @@ const scope = {
     // we log fruit again. Fruit is 'mango' since we declared it in the if block. We log fruit again on line 307. Fruit is 'mango', because we declared
     // our fruit variable with 'var' inside the if block. This is not block scoped and is hoisted to the top of our function. We log fruit one last 
     // time in the global scope so fruit is apple.
+},
 
   exerciseH() {
     let num = 6;
@@ -369,6 +370,7 @@ const scope = {
       {'B': 9},
       {'C': 4}
     ];
+
     return result;
 
     // Annotation:
@@ -416,7 +418,7 @@ const scope = {
       {'D': 80},
       {'A': 55},
       {'B': 0},
-      {'C', 55},
+      {'C': 55},
       {'E': 55}
     ];
     return result;

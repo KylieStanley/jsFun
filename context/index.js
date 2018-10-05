@@ -32,7 +32,7 @@ const context = {
     }
     
     // What is the value of `this` when we call fn()?
-    const result = 'global vwindow object';
+    const result = 'global window object';
     return result;
 
     // Annotation:
