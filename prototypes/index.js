@@ -278,7 +278,7 @@ const cakePrompts = {
       return acc;
     }, {});;
     return result;
-
+  },
     // Annotation:     
     //I received an array of cake objects and want to produce a new object that
     //includes the toppings and amount needed of each so I use reduce to first create a new array of only
@@ -646,6 +646,7 @@ const astronomyPrompts = {
     //   'Orion',
     //   'Centaurus' ]
 
+
     const result = stars.filter(star => {
       return star.visualMagnitude < 0.6 && star.constellation !== '';
     }).map(star => star.constellation)
@@ -659,7 +660,6 @@ const astronomyPrompts = {
     // Finally I returned a full array of names.
   }
 };
-
 
 
 module.exports = {

@@ -1,4 +1,4 @@
-fconst context = {
+const context = {
   exerciseA() {
     const fly = () => {
       console.log(this);
@@ -71,7 +71,6 @@ fconst context = {
       return innerFunction();
       }
     };
-
 
     // What is the value of `this` when we call dog.getBreed()?
     const result = 'global window object';
@@ -209,7 +208,7 @@ fconst context = {
     });
 
     // What is the value of `this` when a user clicks on our #btn element and the callback is triggered?
-    const result = '$('#btn') jQuery object';
+    const result = 'button element';
     return result;
 
     // Annotation: 
