@@ -538,6 +538,7 @@ const kittyPrompts = {
     //   color: 'orange'
     // },
     // ...etc]
+
     const result = kitties.map(kitty => {
       kitty.age += 2;
       return kitty;
@@ -549,7 +550,7 @@ const kittyPrompts = {
     // property on each kitty object increased by two. I use map to iterate over each kitty
     // and set kitty.age to the current value plus two. I then return the kitty object from the
     // callback and return the entire changed array from the main function.
-  };
+  }
 };
 
 
@@ -654,5 +655,6 @@ module.exports = {
   classPrompts,
   modPrompts,
   kittyPrompts,
+  cakePrompts,
   astronomyPrompts
 };
