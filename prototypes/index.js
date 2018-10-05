@@ -11,12 +11,12 @@ const { bosses, sidekicks } = require('./datasets/bosses');
 const turingPrompts = {
   studentsForEachInstructor() {
     instructors.map((instructor) => {
-        let newInstructor = {name: instructor.name}
-        let matchingCohort = cohorts.find(function(cohort) {
+      let newInstructor = {name: instructor.name}
+      let matchingCohort = cohorts.find(function(cohort) {
         return cohort.module === instructor.module;
-    })
-        newInstructor.students = matchingCohort.studentCount;
-        return newInstructor;
+      })
+      newInstructor.students = matchingCohort.studentCount;
+      return newInstructor;
     });
 
  
@@ -31,11 +31,20 @@ const turingPrompts = {
     // cohort1804: 10.5
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = cohorts.reduce((obj,key) => {
+      obj[`cohort${key.cohort}`] = key.studentCount / instructors.reduce((acc, teacher) => {
+        if (teacher.module === key.module) {
+          acc++;
+        }
+        return acc;
+      }, 0);
+      return obj;
+    }, {});
     return result;
 
     // Annotation:
     // Write your annotation here as a comment
+
   },
 
   modulesPerTeacher() {
@@ -112,8 +121,11 @@ const modPrompts = {
       return result;
 
     // Annotation:
-    // I receive an array of objects and want to receive an array of the same length with a new
-    // key of studentsPerInstructor and mod.
+    // I receive an array and want to receive an array of the same length with a new
+    // key of studentsPerInstructor and mod so I will use map to iterate over the mods.
+    // On each iteration the callback will return a new object with a mod and studentsPerInstructor
+    // key. We get the value of studentsPerInstructor by dividing our mod.students by the 
+    // mod.teachers. The map function will return a new array of our new objects.
   }
 };
 
@@ -148,8 +160,10 @@ const classPrompts = {
     // ]
     return result;
     // Annotation:
-    // I receive an array of classrooms and want to return a new array
-    // with only FE classrooms filtered out so I use the filter method.
+    // I receive an array of classrooms and want to return a new array with only
+    // FE classrooms so I use the filter method. Each iteration of the callback 
+    // returns a boolean. If the statement evaluates to true, the room will be added
+    // to the new array. The filter function finally returns an array of only FE rooms.
   },
 
   totalCapacities() {
@@ -160,8 +174,22 @@ const classPrompts = {
     //   beCapacity: 96
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+  let feCapacity = 0;
+  let beCapacity = 0;
+
+    const result = 
+    classrooms.reduce((obj, room) => {
+      if (room.program === 'FE') {
+        feCapacity += room.capacity;
+      } else {
+        beCapacity += room.capacity;
+      }
+      obj.feCapacity = feCapacity;
+      obj.beCapacity = beCapacity;
+      return obj;
+    }, {});
     return result;
+
 
     // Annotation:
     // Write your annotation here as a comment
@@ -170,26 +198,23 @@ const classPrompts = {
   sortByCapacity() {
     // Return the array of classrooms sorted by their capacity (least capacity to greatest)
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = classrooms.sort((a,b) => a.capacity - b.capacity);;
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // I have an array and want to return the same array, sorted by capacity, so I will use 
+    // .sort. Each callback iteration compares two room object capacities and continues through
+    // the end. The .sort will return the new array of objects in increasing capacity order.
   }
 };
 
 
 
-
-
-
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-
-
 
 
 
@@ -262,22 +287,36 @@ const cakePrompts = {
     //    ..etc
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = cakes.map(cake => {
+      return {
+        flavor: cake.cakeFlavor,
+        inStock: cake.inStock
+      }
+    });
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // I have an array and want to return a modified array of the same length. I will use
+    // map to iterate over each cake. Each iteration of the callback function will return 
+    // a new object with only the cake flavor and stock. The new array of objects will be 
+    // returned and stored in result.
   },
 
   totalInventory() {
     // Return the total amout of cakes in stock e.g.
     // 59
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = cakes.reduce((total, cake) => {
+      total += cake.inStock;
+      return total;
+    }, 0);
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // I have an array and want to return a single number so I will use reduce. I set the 
+    // initial value to zero and on each iteration of the callback, add the value of caie.inStock
+    // to the total. The callback will return the total on each and the reduce will return 
+    // the final total. 
   },
 
   onlyInStock() {
@@ -288,6 +327,7 @@ const cakePrompts = {
 
     return result;
 
+    // Annotation:
     //I'm receiving an array of cakes and I want a subset of that
     //array so I will use filter. My filter callback will return only
     //the cakes that have an inStock value.  Return an array of only
@@ -316,15 +356,11 @@ const cakePrompts = {
 
 
 
-
-
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-
-
 
 
 
@@ -361,13 +397,11 @@ const piePrompts = {
 
 
 
-
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-
 
 
 
@@ -410,13 +444,11 @@ const clubPrompts = {
 
 
 
-
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-
 
 
 
@@ -433,11 +465,11 @@ const bossPrompts = {
     //   { bossName: 'Scar', sidekickLoyalty: 16 }
     // ]
 
-     const result = Object.keys(bosses).map((boss) => {
+     const result = Object.keys(bosses).reverse().map((boss) => {
       return {
         bossName: bosses[boss].name,
         sideKickLoyalty: sidekicks.reduce((acc, sideKick) => {
-          if (bosses[boss].name === sideKick.boss) {
+          if (boss === sideKick.boss.toLowerCase()) {
             acc += sideKick.loyaltyToBoss;
           }
           return acc;
@@ -455,13 +487,11 @@ const bossPrompts = {
 
 
 
-
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-
 
 
 
@@ -473,21 +503,26 @@ const kittyPrompts = {
     // Return an array of just the names of kitties who are orange e.g.
     // ['Tiger', 'Snickers']
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    const result = kitties.filter(kitty => kitty.color === 'orange').map(kitty => kitty.name);
 
     // Annotation:
-    // Write your annotation here as a comment
+    // I have an array and want to return an array of a shorter length. I only want to return
+    // kitties that have the color orange, so I will use filter to return only those kitties.
+    // That will return an array of the kitty objects and I only want an array of the name properties.
+    // I will chain on map to return a new modified array of the same length to pull back just the name
+    // values.
   },
 
   sortByAge() {
     // Sort the kitties by their age
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = kitties.sort((a,b) => a.age - b.age);
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // I am given an array and want to return an array of the same length, with its elements
+    // reordered. I will use .sort and access the ages with dot notation to iterate through the
+    // kitty objects and sort them by age. 
   },
 
   growUp() {
@@ -503,19 +538,28 @@ const kittyPrompts = {
     //   color: 'orange'
     // },
     // ...etc]
+    const result = kitties.map(kitty => {
+      kitty.age += 2;
+      return kitty;
+    });
+    return result;
+
+    // Annotation:
+    // I am given an array and want to return an array of the same length, with the age
+    // property on each kitty object increased by two. I use map to iterate over each kitty
+    // and set kitty.age to the current value plus two. I then return the kitty object from the
+    // callback and return the entire changed array from the main function.
   };
 };
 
 
 
 
-
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-
 
 
 
@@ -539,7 +583,15 @@ const astronomyPrompts = {
     //     color: 'red' }
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    var constellationKeys = Object.keys(constellations);
+    const result = stars.filter(star => {
+      let newStar;
+      constellationKeys.forEach(key => {
+        if (constellations[key].names.includes(star.constellation))
+        newStar = star;
+      })
+      return newStar;
+    })
     return result;
 
     // Annotation:
@@ -557,7 +609,14 @@ const astronomyPrompts = {
     //   red: [{obj}]
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = stars.reduce((obj, star) => {
+      if (!(star.color in obj)) {
+        obj[star.color] = stars.filter(color => {
+          return star.color === color.color;
+        })
+      }
+      return obj;
+    }, {});
     return result;
 
     // Annotation:

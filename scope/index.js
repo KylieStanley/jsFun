@@ -6,7 +6,7 @@ const scope = {
 
     function changePerson() {
       if (personA === 'Paul') {
-        person = 'CardiB';
+        person = 'CardiB';  //creates global variable because person was not declared
         beautifyPerson();
       }
 
@@ -29,11 +29,26 @@ const scope = {
 
     // Log D: personC
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = [
+    {'A': 'Ben'},
+    {'B': 'CardiB'},
+    {'C': 'CardiB'}.
+    {'D': 'Paul'}
+    ];
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // We declare three global variables, personA, personB, personC. We then declare our changePerson
+    // function on line 7. We skip to line 28 and invoke changePerson. We go back to line 8 inside changePerson
+    // where we check if personA equals Paul, and if true, reassign person to CardiB. Since a person variable does
+    // not exist, we set a global person variable to CardiB and then invoke beautifyPerson. On line 14 inside beautifyPerson
+    // we log the value of personB which evaluates to Ben. We then check if personB(Ben) includes 'B'. This is true, so we
+    // reassign personB to the value of our global person variable. The value of personB is now CardiB. We go to line18 and 
+    // reassign personC to the value of personB. Since personB is now CardiB, personC becomes CardiB in the global scope. On
+    // line19 we log personC which evaluates to CardiB. We continue changePerson on line23 where we reassign personC to the 
+    // value of personA. We then log the value of personB on line25 which is CardiB, since we had reassigned the globally scoped
+    // variable. This ends the invokation of changePerson so we move to line 30 and log the value of personC in the global scope.
+    // Since the bueatifyPerson functiuon reassigned the global personC variable to the value of personA, personC is 'Paul'.
   },
 
   exerciseB() {
@@ -63,11 +78,26 @@ const scope = {
 
     // Log D: number
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = [
+      {'A': '75'},
+      {'B': '64'},
+      {'C': '64'},
+      {'D': '30'},
+    ];
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // We declare a global variable number that is assigned to 30 on line 55. We then declare the numberFunction function
+    // on line 57. We skip down to line 77 and invoke the numberFunction function. We go back to line 58 and declare a function
+    // scoped variabe called number and assign it equal to 75. On line 60 we check if the number variable is equal to 75. If true, 
+    // this declares a block scoped number variable and assigns it equal to 28.  We then log number, which will be 75 because we are
+    // now only in the scope of numberFunction. We declare the newNumber function on line 66 and skip to line 72 to invoke the newNumber
+    // function. On line 67 number is reassigned to equal 64. Number has not been declared in newNumber, so we look up the scope chain 
+    // into the parent function, numberFunction. The variable delcared in numberFunction on line 58 gets reassigned to 64. We log number
+    // inside newNumber which is 64. That is the end of newNumber so we move back to line 74 and log number. Since we are still inside 
+    // number function, and the function scoped number variable was reassigned by newNumber, number is 64 in the scope of numberFunction.
+    // We exit numberFunction and move to line 79 where we log number again. This is in the global scope so number will still be 30, the
+    // value of the global variable declared on line 55;
   },
 
   exerciseC() {
@@ -97,11 +127,26 @@ const scope = {
 
     // Log D: greeting
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = [
+      {'A': 'Yo'}
+      {'B': 'Hey'}
+      {'C': 'Hey'}
+      {'D': 'Hello'}
+    ];
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // We first declare a global variable, greeting, that is assigned to the string 'Hello' on line 104. We then declare the function
+    // greetingFunction on line 106. We skip to line 126 and invoke greetingFunction. We then go back to line 107 and declare a variable
+    // greeting that is assigned to the string 'Yo' inside the greetingFunction scope. On line 109 we evaluate if the value of the greeting 
+    // variable is equal to 'Yo' and declare a new block scoped variable greeting that is assigned to 'Howdy'. We log greeting on line 113
+    // which still equals the function scoped variable from line 107,'Yo'. We declare a newPhrase function on line 115, then skip to line 121
+    // and invoke newPhrase. We reassign greeting to 'Hey' on line 116. Greeting was not declared in the scope of newPhrase so we look up one
+    // level into greetingFunction. Greeting was declared in the greetingFunction scope on line 107, so we reassign that to the string 'Hey'.
+    // We log greeting inside newPhrase, which is 'Hey', and exit the function. We move back to line 123 and log greeting again. Since newPhrase
+    // reassigned the greeting variable in the function scope of GreetingFunction, greeting is 'Hey'. We exit greetingFunction and move to line
+    // 128 to log greeting again which is 'Hello' since we are now back in the global scope and can only see the globally scoped variable.
+
   },
 
   exerciseD() {
@@ -131,11 +176,24 @@ const scope = {
 
     // Log D: greeting
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = [
+      {'A': 'hi'}
+      {'B': 'welcome'}
+      {'C': 'welcome'}
+      {'D': 'howdy'}
+    ];
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // We declare a global variable greeting assigned to 'howdy' on line 153. We then declare a const greetingGenerator which is a function.
+    // on line 155. We skip to line 175 and invoke greetingGenerator. We move back to line 156 inside the greetingGenerator function and declare
+    // a function scoped greeting variable assigned to 'hi'. We run a conditional to check if greeting equals 'hi', and if so, create a new block
+    // scoped greeting variable assigned to 'hello'. We then log greeting on line 162 which is 'hi' since that was declared inside our function. We 
+    // declare another const variable newGreeting assigned to a function on line 164, then skip to line 170 and invoke it. Inside newGreeting, the
+    // greeting variable is reassigned to 'welcome'. No greeting variable was delcared within newGreeting, so we look outside to the parent function
+    // scope and reassign the greeting variable on line 156 to 'welcome'. We log greeting on line 167, which is now 'welcome'. On line 172 we log greeting
+    // again. We are within the greetingGenerator function, and just reassigned that variable, so its value is 'welcome'. We move back out to the global
+    // scope and log greeting. The globally defined variable has not changed so greeting is 'howdy' in the global scope.
   },
 
   exerciseE() {
@@ -163,11 +221,23 @@ const scope = {
 
     // Log D: name
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = [
+      {'C': 'Brittany'}
+      {'A': 'Nathaniel'}
+      {'B': 'Nathaniel'}
+      {'D': 'Brittany'}
+    ];
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // We declare a global variable name on line 200 assigned to 'Brittany'. We move to line 202 and declare a function called sayName. We then skip
+    // to line 218 and log name which is still 'Brittany' as defined in the global scope above. We invoke sayName on line 220. We go back to line 203
+    // and declare a name variable assigned to 'Pam'. On line 205 we check if the name variable equals 'Pam' and if so, reassign the name variable to
+    // 'Nathanial'. This reassigns the name variable that was declared on line 203. Inside the current if statement block, we run another conditional 
+    // to check of name.length is greater than 0. If true, a new name variable is declared and assigned to 'Brittany'. We then log name on line 212. We
+    // are inside the block scope where name was reassigned to 'Nathanial', so that is the current value of name. We move to line 215, outside of the block
+    // scope and back to the scope of sayName and log name. Since the function scoped name variable was reassigned to 'Nathanial', that is the value of 
+    // name here as well. We move to line 222 and log name again. We nare in the global scope again so name will equal 'Brittany'.
   },
 
   exerciseF() {
@@ -198,11 +268,24 @@ const scope = {
 
     // Log E: dog
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = [
+      {'A': 'Spot'}
+      {'B': 'Spot'}
+      {'C': 'Biscuit'}
+      {'D': 'Biscuit'}
+      {'D': 'Biscuit'}
+    ];
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // We start by declaring a gloal dog variable assigned to 'Spot' on line 244. On line 246 we declare a function petDog. We skip down to line 267
+    // and invoke petDog. On line 247 we log dog. Dog has not been declared in the function scope so we look outside to the global scope. Dog will log
+    // 'Spot'. We then run a conditional to check if dog equals 'Spot' and declare a new dog variable assigned to 'Fluffy' if true. We declare a function
+    // called rollOver on line 253. We skip to line 262 and invoke rollOver. On line 254 we log dog. Dog has not been declared in the rollOver function, 
+    // so we move up a level and check the petDog scope. Dog is not declared in the petDog scope so dog will by 'Spot' as defined in the global scope. On 
+    // line 256 the global dog variable is reassigned to 'Biscuit'. When dog is logged again on line 258, dog qill equal 'Biscuit'. We move back to line
+    // 264 and log dog again. We are in the petDog function scope, which has no dog variable declaration. Dog will be 'Biscuit again as defined globally.
+    // On line 269 we log in the global scope, which equals 'Biscuit'.
   },
 
   exerciseG() {
@@ -228,12 +311,23 @@ const scope = {
 
     // Log D: fruit
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result =  [
+      {'A': 'undefined'}
+      {'B': 'mango'}
+      {'C': 'mango'}
+      {'D': 'apple'}
+    ];
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
-  },
+    // We declare a global variable fruit assigned to 'apple'. We then declare a function eatfruit on line 294. On line 310 we invoke eatFruit.
+    //On line 296 we check if the fruit variable is not kiwi. If fruit is not 'kiwi', we declare a new variable fruit that is 'mango'. We then
+    // check if fruit exists, and log fruit. Fruit will be undefined. This is because we declare the const fruit and assign to strawberry within 
+    // the block scope, but that does not happen until after fruit is logged. This will hoist the fruit declaration, but not the actual value, to 
+    // the top of the block scope. When fruit is logged, we know fruit exists, but have no value. Outside of the second block, but still in the first, 
+    // we log fruit again. Fruit is 'mango' since we declared it in the if block. We log fruit again on line 307. Fruit is 'mango', because we declared
+    // our fruit variable with 'var' inside the if block. This is not block scoped and is hoisted to the top of our function. We log fruit one last 
+    // time in the global scope so fruit is apple.
 
   exerciseH() {
     let num = 6;
@@ -268,11 +362,18 @@ const scope = {
 
     fn1();
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result =  [
+      {'': ''}
+      {'': ''}
+      {'': ''}
+      {'': ''}
+      {'': ''}
+    ];
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // We declare a global variable num and assign to 6. We then declare a const variable fn1 assigned to a function. On line 355 we declare a const
+    // variable fn2 and assign it to a function. We then invoke fn1 on line 363.
   },
 
   exerciseI() {
@@ -299,7 +400,13 @@ const scope = {
     eatSnack();
     // Log E: hunger
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result =  [
+      {'': ''}
+      {'': ''}
+      {'': ''}
+      {'': ''}
+      {'': ''}
+    ];
     return result;
 
     // Annotation:
@@ -340,7 +447,13 @@ const scope = {
     // Log E: sandwich
     // Log F: amandaBynes
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result =  [
+      {'': ''}
+      {'': ''}
+      {'': ''}
+      {'': ''}
+      {'': ''}
+    ];
     return result;
 
     // Annotation:
@@ -393,7 +506,13 @@ const scope = {
 
     // Log C: grade
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result =  [
+      {'': ''}
+      {'': ''}
+      {'': ''}
+      {'': ''}
+      {'': ''}
+    ];
     return result;
 
     // Annotation:
@@ -419,7 +538,13 @@ const scope = {
 
     // Log D: num
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result =  [
+      {'': ''}
+      {'': ''}
+      {'': ''}
+      {'': ''}
+      {'': ''}
+    ];
     return result;
 
     // Annotation:
@@ -469,19 +594,30 @@ const scope = {
     var shoe = 'flipflop';
 
     function putOnShoe() {
-      // Log A: shoe
+      // Log A: shoe   flipflop
       var shoe = 'boot';
     }
 
-    // Log B: shoe
+    // Log B: shoe      flipflop 
     putOnShoe();
     // Log C: shoe
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = [
+      {'B': 'flipflop'},
+      {'A': 'undefined'},
+      {'C': 'flipflop'},
+
+    ];
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // On line 469 we declare a global variable named shoe and assign it equal to flipflop.
+    // Then we declare a global function named putOnShoe, but we skip down to line 469 because it
+    // hasn't been invoked yet. On line 469 we log the value of show, which is 'flipflop' at this point 
+    // in time. Then we go ahead and invoke our putOnShoe function, and when we try to log shoe within
+    // our function, we get undefined because our shoe delcaration on line 473 is hoisted to the top of 
+    // that function scope Once we've finished executing putOnShoe, we go back down to line 478 and log
+    // shoe again which will give us flipflop.
   }
 }
 

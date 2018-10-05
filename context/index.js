@@ -16,7 +16,7 @@ fconst context = {
 
 
     // What is the value of `this` when we call ship.fly()?
-    const result = instance of SpaceProbe;
+    const result = 'instance of SpaceProbe';
     return result;
 
     // Annotation:
@@ -32,7 +32,7 @@ fconst context = {
     }
     
     // What is the value of `this` when we call fn()?
-    const result = 'global vwindow object' ;
+    const result = 'global vwindow object';
     return result;
 
     // Annotation:
@@ -55,8 +55,9 @@ fconst context = {
     return result;
 
     // Annotation: 
-    // The getInfo method is being called on the 'car' object, so `this` within the function refers
-    // to that car object.  
+    // `This` gets defined on function invokation. The function is being invoked upon the click event
+    // of a button. `This` will refer to the button that was clicked instead of the car object. If we
+    // called car.getInfo() on its own, `this` would refer to the car object. 
   },
 
   exerciseD() {
@@ -77,10 +78,9 @@ fconst context = {
     return result;
 
     // Annotation: 
-    // `This` is being called on a new function within the getBreed method. This inner 
-    // function cannot access the `this` on the dog object because it is not a property of 
-    // the dog object itself. innerFunction will log the Window object for `this`, which 
-    // will then be returned by getBreed()
+    // This is an ES5 function, 'this' is not assigned until function is invoked. The inner
+    // function cannot access the `this` that the getBreed method refers back to. By default,
+    // `this` becomes the global window object.
   },
 
   exerciseE() {
@@ -97,7 +97,7 @@ fconst context = {
 
     // Annotation: 
     // With ES6 syntax, the value of this is assigned on function declaration. `This` refers to the
-    // global window object because the function itself has been defined globally
+    // global window object because the function itself has been defined globally.
   },
 
   exerciseF() {
@@ -120,8 +120,9 @@ fconst context = {
     return result;
 
     // Annotation: 
-    // identifyHero is a method on the Hero object. `This` refers to the object on which
-    // it is called. When we create the new storm object from Hero, this will refer to storm.
+    // identifyHero is a method on the Hero class. `This` refers to the object on which
+    // it is called. When we create the new storm object from Hero class, this will refer to 
+    // a new instance of Hero because the new object inherits that method.
   },
 
   exerciseG() {
@@ -145,11 +146,13 @@ fconst context = {
 
 
     // What is the value of `this` when we call monopoly.restart()?
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = 'global window object';
     return result;
 
     // Annotation: 
-    // Write your annotation here as a comment
+    // When we call monopoly.restart(), we are calling a method on the monopoly object.
+    // Within that method is another function. The `this` within that inner function cannot
+    // access the `this` that refers to the object, so it defaults to the global window.
   },
 
   exerciseH() {
@@ -163,11 +166,13 @@ fconst context = {
     obj.method();
 
     // What is the value of `this` when we call obj.arrowFunction()?
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = 'obj';
     return result;
 
     // Annotation: 
-    // Write your annotation here as a comment
+    // obj.method is running a function that reassigns the value of the arrowFunction property
+    // to a function that returns `this`. When we call obj.arrowFunction(), we are just calling
+    // a method on the object, so `this` is the object.
   },
 
   exerciseI() {  
@@ -186,11 +191,16 @@ fconst context = {
     }, poets)
 
     // What is the value of `this` that gets returned on each iteration of poets.map()?
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = 'poets';
     return result;
 
     // Annotation: 
-    // Write your annotation here as a comment. Annotation should include explanation regarding the second argument of `poets` that is being passed
+    // Each iteration of poets.mapn returns the entire poets array. We are mapping through the poets
+    // array and returning `this` in the callback. The poets array is being passed into the callback
+    // function by way of the `thisArg` parameter. In the callback of an array prototype, `this` will 
+    // refer to the value of whatever is used as the `thisArg` parameter. If nothing is specified, this
+    // will refer to the window.
+    
   },
 
   exerciseJ() {
@@ -199,7 +209,7 @@ fconst context = {
     });
 
     // What is the value of `this` when a user clicks on our #btn element and the callback is triggered?
-    const result = '$(#btn) object';
+    const result = '$('#btn') jQuery object';
     return result;
 
     // Annotation: 
