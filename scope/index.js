@@ -82,7 +82,7 @@ const scope = {
       {'A': '75'},
       {'B': '64'},
       {'C': '64'},
-      {'D': '30'},
+      {'D': '30'}
     ];
     return result;
 
@@ -128,9 +128,9 @@ const scope = {
     // Log D: greeting
 
     const result = [
-      {'A': 'Yo'}
-      {'B': 'Hey'}
-      {'C': 'Hey'}
+      {'A': 'Yo'},
+      {'B': 'Hey'},
+      {'C': 'Hey'},
       {'D': 'Hello'}
     ];
     return result;
@@ -177,9 +177,9 @@ const scope = {
     // Log D: greeting
 
     const result = [
-      {'A': 'hi'}
-      {'B': 'welcome'}
-      {'C': 'welcome'}
+      {'A': 'hi'},
+      {'B': 'welcome'},
+      {'C': 'welcome'},
       {'D': 'howdy'}
     ];
     return result;
@@ -222,9 +222,9 @@ const scope = {
     // Log D: name
 
     const result = [
-      {'C': 'Brittany'}
-      {'A': 'Nathaniel'}
-      {'B': 'Nathaniel'}
+      {'C': 'Brittany'},
+      {'A': 'Nathaniel'},
+      {'B': 'Nathaniel'},
       {'D': 'Brittany'}
     ];
     return result;
@@ -269,10 +269,10 @@ const scope = {
     // Log E: dog
 
     const result = [
-      {'A': 'Spot'}
-      {'B': 'Spot'}
-      {'C': 'Biscuit'}
-      {'D': 'Biscuit'}
+      {'A': 'Spot'},
+      {'B': 'Spot'},
+      {'C': 'Biscuit'},
+      {'D': 'Biscuit'},
       {'D': 'Biscuit'}
     ];
     return result;
@@ -312,9 +312,9 @@ const scope = {
     // Log D: fruit
 
     const result =  [
-      {'A': 'undefined'}
-      {'B': 'mango'}
-      {'C': 'mango'}
+      {'A': 'undefined'},
+      {'B': 'mango'},
+      {'C': 'mango'},
       {'D': 'apple'}
     ];
     return result;
@@ -363,17 +363,26 @@ const scope = {
     fn1();
 
     const result =  [
-      {'': ''}
-      {'': ''}
-      {'': ''}
-      {'': ''}
-      {'': ''}
+      {'A': 4},
+      {'D': 9},
+      {'E': 10},
+      {'B': 9},
+      {'C': 4}
     ];
     return result;
 
     // Annotation:
     // We declare a global variable num and assign to 6. We then declare a const variable fn1 assigned to a function. On line 355 we declare a const
-    // variable fn2 and assign it to a function. We then invoke fn1 on line 363.
+    // variable fn2 and assign it to a function. We then invoke fn1 on line 363. We move back to line 336 inside the fn1 function and declare a variable
+    // num and assign it equal to 4. We log num on line 338 which is 4 as we just declared. On line 340, we check if num is less than 5. If so, we declare
+    // a block scoped const variable num and assign it equal to 9. We invoke fn2 on line 343 and pass in num, which we just assigned the value 9. We skip
+    // to line 356, now inside fn2 and log num. Num here will equal the parameter that we passed into the function which is 9. We reassign the global num 
+    // variable on line 358 to the current parameter num plus one. When we log num again on line 360, it now equals 10. After fn2 runs, we keep moving inside 
+    // fn1 and declare a const variable newNum on line 345, assigned to the value of the num variable. This is still within the block scope of the if statement 
+    // where we declared num and assigned to 9, so newNum equal 9 as well. On line 350, outside of the block scope, but still within function scope, we reassign
+    // newNum to the num variable. This newNum variable cannot look inside the if block scope to see the previously declared newNum variable, so we are creating 
+    // a global newNum variable and assigning it to the value of 4. We log newNum on line 352 and get 4 because it was assigned the value of the function scoped
+    // num variable.
   },
 
   exerciseI() {
@@ -401,20 +410,32 @@ const scope = {
     // Log E: hunger
 
     const result =  [
-      {'': ''}
-      {'': ''}
-      {'': ''}
-      {'': ''}
-      {'': ''}
+      {'A': 75},
+      {'B': 0},
+      {'C': 75},
+      {'D': 80},
+      {'A': 55},
+      {'B': 0},
+      {'C', 55},
+      {'E': 55}
     ];
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // We declare a global variable hunger and assign it to 100. We then declare the eatSnack function on line 391. We skip to line 404 and invoke eatSnack.
+    // On line 392, we reassign the global hunger variable to the current value minus and log hunger, which is now 75. We invoke the gorgeYourself function
+    // and move to line 396 where it has been declared. Inside the function we declare a const variable hunger and assign it to 0. We log hunger on 398 which
+    // will give us 0. We log hunger again on line 401. We are within the eatSnack function scope that does not have it's own hunger variable declared, so we 
+    // can look to the variable in the global scope which equals 75. We move to line 406 and reassign the global hunger variable to the current value plus 5.
+    // Hunger will now equal 80 when we log it on line 407. We invoke eatSnack again on 409, go back up to line 392 and reassign hunger globally to 55. We log
+    // A again on line 393, which refers to the global variable and equals 55. The gorgeYourself function is invoked again which, again, declares a function 
+    // scoped hunger variable assigned to 0. We log B again on line 398 which is 0 because we just declared and assigned it. We log hunger again within eatSnack
+    // which still equals 55 because it is referring back to the global variable. When eatSnack is finished running, we log hunger which has been reassigned to 
+    // 55 globally.
   },
 
   exerciseJ() {
-    let sandwich = 'ketchup sandwich';
+    let sandwich = 'ketchup sandwich';  //var cheeseTopping = 'kraft',var amandaBynes = "National Treasure"
 
     // Log A: sandwich
 
@@ -448,16 +469,28 @@ const scope = {
     // Log F: amandaBynes
 
     const result =  [
-      {'': ''}
-      {'': ''}
-      {'': ''}
-      {'': ''}
-      {'': ''}
+      {'A': 'ketchup sandwich'},
+      {'D': 'gouda'},
+      {'B': 'undefined'},
+      {'C': 'not a mediocre sandwich'},
+      {'E': 'not a mediocre sandwich'},
+      {'F': 'National Treasure' }
     ];
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // We declare a global variable sandwich and assign it to the string 'ketchup sandwich'. We log sandwich on line 440 which will be 'ketchup sandwich'. We
+    // then declare a const variable addChipotle on line 442 and assign its value to a function. We declare another const variable addCheese on line 453 and
+    // assign its value to a function. We skip to line 464 and reassign a cheeseTopping variable to 'kraft'. Since no cheeseTopping variable exists currently,
+    // we have just declared a global cheeseTopping variable. We invoke addCheese on line 465. Within addCheese on line 454, we declare a cheeseTopping variable
+    // and assign it to 'gouda'. We log cheeseTopping on line 455 and receive 'gouda'. We declare a const variable shesTheManReference on line 457, then invoke
+    // it on line 461. We go back to line 458 and reassign the variable amandaBynes to 'National Treasure'. The declares a new global variable because we did not
+    // specify let, var, or const. We move down to line 467 and invoke addChipotle next. First, we log toppings on line 443. We declare and assign toppings on the
+    // next line, so the toppings declaration is hoisted to the top of the function without the value and toppings on line 443 will be undefined. The toppings
+    // variable gets assigned to 'chipotle sauce' on line 444. We run a conditional statement to check if toppings equals 'chipotle sauce'. We reassign the sandwich
+    // variable to 'not a mediocre sandwich'. This will reassign our global variable which was previously 'ketchup sandwich'. We log sandwich on line 450 which now 
+    // equals 'not a mediocre sandwich'. After addChipotle runs, we go to line 468 and log sandwich which is 'not a mediocre sandwich'. We log amandaBynes which will
+    // be 'National Treasure'.
   },
 
   exerciseK() {
@@ -474,11 +507,16 @@ const scope = {
 
     // Log B: num
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = [
+      {'A': 7},
+      {'B': 7}
+    ];
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // We declare a global variable num on line 497 and assign it to 10. we declare a function foo on line 499. We invoke foo on line 506. On line 500, we check
+    // if num is greater than five, and if so, reassign the num variable to 7. This reassigns the value of the globally declared variable. We log num on line 503
+    // which will be 7. We exit foo and log num again on line 508 which will be 7 since we are in the global space, and reassigned the global variable earlier.
   },
 
   exerciseL() {
@@ -507,16 +545,19 @@ const scope = {
     // Log C: grade
 
     const result =  [
-      {'': ''}
-      {'': ''}
-      {'': ''}
-      {'': ''}
-      {'': ''}
+      {'A': 95},
+      {'B': 90},
+      {'C': 90}
     ];
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // We declare a global variable grade and assign it to 100. On line 525 we declare a function losePoints. We skip to line 543 and invoke losePoints. We go 
+    // back to line 526 and reassign the grade variable to 90. On line 528 we declare a function addPoints. We skip to line 538 and invoke addPoints. We go back
+    // to line 529 and declare a const variable grade and assign it to 95. We check if grade equals 95, then declare a block scoped varaible grade and assign it 
+    // to 97. We log grade on line 535 which will be 95 because that was declared within the current function scope. We move back to line 540 and log grade inside
+    // the losePoints function scope. Grade was reassigned to 90 at the top of the function and has not changed within this scope. We log grade on 545 in the global 
+    // scope after running losePoints. Since losePoints reassigned grade in the global scope, grade is 90 here as well.
   },
 
   exerciseM() {
@@ -605,7 +646,7 @@ const scope = {
     const result = [
       {'B': 'flipflop'},
       {'A': 'undefined'},
-      {'C': 'flipflop'},
+      {'C': 'flipflop'}
 
     ];
     return result;

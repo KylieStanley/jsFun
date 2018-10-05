@@ -9,8 +9,14 @@ const { bosses, sidekicks } = require('./datasets/bosses');
 
 // DATASET: instructors, cohorts from ./datasets/turing
 const turingPrompts = {
+  // Return an array of instructors where each instructor is an object
+    // with a name and the count of students in their module. e.g. 
+    // [
+    //  { name: 'Pam', studentCount: 21 },
+    //  { name: 'Robbie', studentCount: 18 }
+    // ]
   studentsForEachInstructor() {
-    instructors.map((instructor) => {
+    const result = instructors.map((instructor) => {
       let newInstructor = {name: instructor.name}
       let matchingCohort = cohorts.find(function(cohort) {
         return cohort.module === instructor.module;
@@ -18,10 +24,11 @@ const turingPrompts = {
       newInstructor.students = matchingCohort.studentCount;
       return newInstructor;
     });
-
+    return result;
  
     // Annotation:
-    // Write your annotation here as a comment
+    // I have two arrays and want an array. The returned array will be the same length as instructors array
+    // so I will use .map over instructors.
   },
 
   studentsPerInstructor() {
@@ -637,11 +644,17 @@ const astronomyPrompts = {
     //   'Orion',
     //   'Centaurus' ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = stars.filter(star => {
+      return star.visualMagnitude < 0.6 && star.constellation !== '';
+    }).map(star => star.constellation)
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // I have an array and want to return a smaller array. We are returning the brightest stars, 
+    // which does not appear to include 'Hadar'. I used .filter to return stars with a visual magnitude
+    // less than .6 and checked if the constellation was an empty string such as the case of the Alpha
+    // Centauri star. I then mapped through the filtered stars and returned just the constellation names.
+    // Finally I returned a full array of names.
   }
 };
 
