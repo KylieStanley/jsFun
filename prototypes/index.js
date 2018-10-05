@@ -28,7 +28,9 @@ const turingPrompts = {
  
     // Annotation:
     // I have two arrays and want an array. The returned array will be the same length as instructors array
-    // so I will use .map over instructors.
+    // so I will use .map over instructors. I set a variable newInstructor to an oject with a key name that 
+    // is assigned to the instructor.name. I declare a variable matchingCohort. I will iterate through cohorts
+    // and return the cohort module that equals the instructor module.
   },
 
   studentsPerInstructor() {
