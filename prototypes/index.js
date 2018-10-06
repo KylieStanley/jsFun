@@ -21,7 +21,7 @@ const turingPrompts = {
       let matchingCohort = cohorts.find(function(cohort) {
         return cohort.module === instructor.module;
       })
-      newInstructor.students = matchingCohort.studentCount;
+      newInstructor.studentCount = matchingCohort.studentCount;
       return newInstructor;
     });
     return result;
@@ -107,8 +107,6 @@ const turingPrompts = {
 
 
 // DATASET: mods from ./datasets/mods
-const modPrompts = {
-  studentsPerMod() {
     // Return an array of objects where the keys are mod (the number of the module)
     // and studentsPerInstructor (how many students per instructor there are for that mod) e.g.
     // [
@@ -124,7 +122,7 @@ const modPrompts = {
        let numOfInstructors = mod.students / mod.instructors;
         return {
           mod: mod.mod,
-          studentsPerInstructors: numOfInstructors
+          studentsPerInstructor: numOfInstructors
         }
       })
       return result;
@@ -477,7 +475,7 @@ const bossPrompts = {
      const result = Object.keys(bosses).reverse().map((boss) => {
       return {
         bossName: bosses[boss].name,
-        sideKickLoyalty: sidekicks.reduce((acc, sideKick) => {
+        sidekickLoyalty: sidekicks.reduce((acc, sideKick) => {
           if (boss === sideKick.boss.toLowerCase()) {
             acc += sideKick.loyaltyToBoss;
           }
@@ -513,7 +511,7 @@ const kittyPrompts = {
     // ['Tiger', 'Snickers']
 
     const result = kitties.filter(kitty => kitty.color === 'orange').map(kitty => kitty.name);
-
+    return result;
     // Annotation:
     // I have an array and want to return an array of a shorter length. I only want to return
     // kitties that have the color orange, so I will use filter to return only those kitties.
@@ -662,6 +660,7 @@ const astronomyPrompts = {
 };
 
 
+
 module.exports = {
   turingPrompts,
   piePrompts,
@@ -674,4 +673,3 @@ module.exports = {
   astronomyPrompts
 };
 
-}}
